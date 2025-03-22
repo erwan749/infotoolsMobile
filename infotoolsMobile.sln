@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "infotoolsMobile", "infotoolsMobile\infotoolsMobile.csproj", "{AE064B8A-9AE8-4690-87F6-90F500F843F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE064B8A-9AE8-4690-87F6-90F500F843F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE064B8A-9AE8-4690-87F6-90F500F843F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE064B8A-9AE8-4690-87F6-90F500F843F0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AE064B8A-9AE8-4690-87F6-90F500F843F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE064B8A-9AE8-4690-87F6-90F500F843F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE064B8A-9AE8-4690-87F6-90F500F843F0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F0198682-0D53-4A67-8663-523D063407C2}
+	EndGlobalSection
+EndGlobal
