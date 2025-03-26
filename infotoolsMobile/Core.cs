@@ -116,5 +116,30 @@ namespace infotoolsMobile
             return null;
         }
 
+        public static async Task<bool> DeleteRdv(int id)
+        {
+            string apiUrl = "http://infotools.test/api/rdvs";
+            string token = await SecureStorage.GetAsync("UserToken");
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    // Ajouter le token d'authentification
+                    client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+                    // Effectuer la requête DELETE pour supprimer le rendez-vous
+                    HttpResponseMessage response = await client.DeleteAsync($"{apiUrl}/{id}");
+
+                    // Vérifier si la réponse est réussie
+                    return response.IsSuccessStatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur lors de la suppression du rendez-vous : " + ex.Message);
+                return false;
+            }
+        }
     }
 }

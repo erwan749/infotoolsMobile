@@ -21,11 +21,32 @@ namespace infotoolsMobile
         // Gestion de l'événement pour le bouton Supprimer
         private async void OnDeleteClicked(object sender, EventArgs e)
         {
-            var confirmDelete = await DisplayAlert("Supprimer", "Êtes-vous sûr de vouloir supprimer ce rendez-vous ?", "Oui", "Non");
-            if (confirmDelete)
+            bool isConfirmed = await DisplayAlert("Confirmation", "Êtes-vous sûr de vouloir supprimer ce rendez-vous ?", "Oui", "Non");
+
+            if (isConfirmed)
             {
-                // Implémentez la logique de suppression ici
-                await DisplayAlert("Supprimer", "suppresion à implémenter.", "OK");
+                try
+                {
+                    // Appeler la méthode du Core pour supprimer le rendez-vous
+                    bool success = await Core.DeleteRdv(Rdv.Id);
+
+                    if (success)
+                    {
+                        // Si la suppression est réussie, retour à la page précédente
+                        await DisplayAlert("Succès", "Rendez-vous supprimé avec succès.", "OK");
+                        await Navigation.PopAsync();
+                    }
+                    else
+                    {
+                        // Si la suppression échoue
+                        await DisplayAlert("Erreur", "Échec de la suppression du rendez-vous.", "OK");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // En cas d'erreur inattendue
+                    await DisplayAlert("Erreur", "Une erreur s'est produite lors de la suppression du rendez-vous: " + ex.Message, "OK");
+                }
             }
         }
     }
