@@ -1,10 +1,48 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="infotoolsMobile.HomePage">
 
-    <VerticalStackLayout Padding="20" Spacing="15">
-        <Label Text="Bienvenue sur la page d'accueil !" FontSize="24" />
-    </VerticalStackLayout>
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Label Text="Liste des Rendez-vous" 
+                   FontSize="24" 
+                   HorizontalOptions="Center" />
 
+            <Button Text="Ajouter RDV"
+                    BackgroundColor="#28a745"
+                    TextColor="White"
+                    Padding="10"
+                    HorizontalOptions="End"
+                    VerticalOptions="Start"
+                    Clicked="OnAddRdvClicked" Margin="0,20" />
+
+            <!-- CollectionView pour afficher les rendez-vous -->
+            <CollectionView ItemsSource="{Binding RdvList}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="5">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnRdvTapped" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <StackLayout Spacing="10">
+                                <StackLayout Orientation="Horizontal" Spacing="5">
+                                    <Label Text="Client:" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Client}" FontSize="18" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="5">
+                                    <Label Text="Commercial:" FontSize="16" FontAttributes="Bold" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding NameCom}" FontSize="16" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="5">
+                                    <Label Text="Date:" FontSize="16" FontAttributes="Bold" TextColor="Gray" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding DateRdv, StringFormat='{0:dd/MM/yyyy HH:mm}'}" FontSize="14" TextColor="Gray" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
