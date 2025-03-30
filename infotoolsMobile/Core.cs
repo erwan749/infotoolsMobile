@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Globalization;
+using Microsoft.Maui.ApplicationModel.Communication;
 
 namespace infotoolsMobile
 {
@@ -54,6 +55,48 @@ namespace infotoolsMobile
                 Console.WriteLine($"Erreur de connexion: {ex.Message}");
             }
 
+            return null;
+        }   
+
+        public static async Task<List<Client>> GetClients()
+        {
+            HttpClient client = new HttpClient();
+            string apiUrl = "http://infotools.test/api/clients";
+            string token = await SecureStorage.GetAsync("UserToken");
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+            try
+            {
+                HttpResponseMessage reponse = await client.GetAsync(apiUrl);
+                if (reponse.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await reponse.Content.ReadAsStringAsync();
+                    var apiResponse = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+
+                    if (apiResponse.succes == true)
+                    {
+                        List<Client> clients = new List<Client>();
+
+                        foreach(var clientData in apiResponse.data)
+                        {
+                            clients.Add(new Client
+                            {
+                                id = clientData.id,
+                                name = clientData.name.nom + " " + clientData.name.prenom,
+                            });
+                        }
+                        return clients;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Échec de la connexion, statut: " + reponse.StatusCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur de connexion: {ex.Message}");
+            }
             return null;
         }
 
@@ -115,6 +158,76 @@ namespace infotoolsMobile
             }
             return null;
         }
+
+        public static async Task<bool> AddRdv(Client unClient , string uneDate)
+        {
+            HttpClient client = new HttpClient();
+            string apiUrl = "http://infotools.test/api/rdvs";
+            string token = await SecureStorage.GetAsync("UserToken");
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+            var value = new
+            {
+                DateRdv = uneDate,
+                NoClient = Convert.ToString(unClient.id)
+            };
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+            try
+            {
+                HttpResponseMessage response = await client.PostAsync(apiUrl, jsonContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    var apiResponse = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+
+                    return apiResponse.success;
+                }
+                
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine($"Erreur de connexion: {ex.Message}");
+            }
+            return false;
+        }
+        public static async Task<bool> UpdateRdv(Client unClient, string uneDate, int rdvId)
+        {
+            HttpClient client = new HttpClient();
+            string apiUrl = $"http://infotools.test/api/rdvs/{rdvId}";  // Utiliser l'ID du rendez-vous pour l'URL
+            string token = await SecureStorage.GetAsync("UserToken");
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+            var value = new
+            {
+                DateRdv = uneDate,  // La nouvelle date du rendez-vous
+                NoClient = Convert.ToString(unClient.id)  // ID du client associé au rendez-vous
+            };
+
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+
+            try
+            {
+                // Utilisation de la méthode PUT pour mettre à jour le rendez-vous existant
+                HttpResponseMessage response = await client.PutAsync(apiUrl, jsonContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    var apiResponse = JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+
+                    return apiResponse.success;  // Retourner true si la mise à jour a réussi
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur de connexion: {ex.Message}");
+            }
+
+            return false;  // Retourner false en cas d'échec
+        }
+
 
         public static async Task<bool> DeleteRdv(int id)
         {

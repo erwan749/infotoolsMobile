@@ -14,9 +14,10 @@ namespace infotoolsMobile
         }
         private async void OnModifyClicked(object sender, EventArgs e)
         {
-            // Vous pouvez naviguer vers une page de modification, par exemple.
-            await DisplayAlert("Modifier", "Page de modification à implémenter.", "OK");
+            Rdv selectedRdv = Rdv; 
+            await Navigation.PushAsync(new UpdatePage(selectedRdv));
         }
+
 
         // Gestion de l'événement pour le bouton Supprimer
         private async void OnDeleteClicked(object sender, EventArgs e)

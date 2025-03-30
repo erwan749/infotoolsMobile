@@ -1,0 +1,22 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="infotoolsMobile.UpdatePage"
+             Title="Mettre à jour le rendez-vous">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Sélectionnez un client :" FontSize="18"/>
+        <SearchBar Placeholder="Rechercher un client..."
+                   TextChanged="OnSearchTextChanged"/>
+        <Picker x:Name="ClientPicker" Title="Choisissez un client"/>
+
+        <Label Text="Date du rendez-vous :" FontSize="18"/>
+        <DatePicker x:Name="DateRdvPicker" Date="{Binding Rdv.DateRdv}"/>
+
+        <Label Text="Heure du rendez-vous :" FontSize="18"/>
+        <TimePicker x:Name="TimeRdvPicker" Time="{Binding Rdv.DateRdv.TimeOfDay}"/>
+
+        <Button Text="Mettre à jour le rendez-vous" Clicked="OnUpdateRdvClicked"/>
+
+        <Label x:Name="StatusLabel" Text="" TextColor="Red" IsVisible="False"/>
+    </VerticalStackLayout>
+</ContentPage>

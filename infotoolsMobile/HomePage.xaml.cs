@@ -52,7 +52,7 @@ namespace infotoolsMobile
         // Exemple de fonction pour ajouter un rendez-vous
         private async void OnAddRdvClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Ajouter", "Page d&ajout à implémenter.", "OK");
+            await Navigation.PushAsync(new AddPage());
         }
     }
 }

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="infotoolsMobile.HomePage">
+             x:Class="infotoolsMobile.HomePage"
+             Title="Liste des rendez vous">
 
     <ContentPage.Content>
-        <StackLayout Padding="10">
-            <Label Text="Liste des Rendez-vous" 
-                   FontSize="24" 
-                   HorizontalOptions="Center" />
-
+        <StackLayout>
             <Button Text="Ajouter RDV"
                     BackgroundColor="#28a745"
                     TextColor="White"
