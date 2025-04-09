@@ -18,7 +18,8 @@ namespace infotoolsMobile
         {
             base.OnAppearing();
             await LoadClients();
-            SelectDefaultClient();  
+            SelectDefaultClient();
+            TimeRdvPicker.Time = Rdv.DateRdv.TimeOfDay;
         }
 
         

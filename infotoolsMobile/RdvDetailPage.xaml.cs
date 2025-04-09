@@ -14,6 +14,7 @@ namespace infotoolsMobile
         }
         private async void OnModifyClicked(object sender, EventArgs e)
         {
+
             Rdv selectedRdv = Rdv; 
             await Navigation.PushAsync(new UpdatePage(selectedRdv));
         }

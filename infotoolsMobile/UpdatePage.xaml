@@ -15,7 +15,7 @@
         <Label Text="Heure du rendez-vous :" FontSize="18"/>
         <TimePicker x:Name="TimeRdvPicker" Time="{Binding Rdv.DateRdv.TimeOfDay}"/>
 
-        <Button Text="Mettre à jour le rendez-vous" Clicked="OnUpdateRdvClicked"/>
+        <Button Text="Mettre à jour le rendez-vous" Clicked="OnUpdateRdvClicked" BackgroundColor="#0056b3" TextColor="White"/>
 
         <Label x:Name="StatusLabel" Text="" TextColor="Red" IsVisible="False"/>
     </VerticalStackLayout>
